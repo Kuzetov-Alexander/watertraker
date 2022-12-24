@@ -98,19 +98,31 @@ class _MySliderState extends State<MySlider> {
   double _currentValue = 0;
   @override
   Widget build(BuildContext context) {
-    return Slider(
-      value: _currentValue,
-      onChanged: (double value) {
-        setState(() {
-          _currentValue = value;
-        });
-      },
-      activeColor: const Color(0xff0148FF),
-      thumbColor: const Color(0xff0148FF),
-      inactiveColor: Colors.grey.shade300,
-      max: widget.max,
-      divisions: widget.max.toInt(),
-      label: _currentValue.round().toString(),
+    return SliderTheme(
+      data: SliderTheme.of(context).copyWith(
+        trackHeight: 21,
+        overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0),
+        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 17.5),
+        valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+        valueIndicatorColor: Colors.redAccent,
+        valueIndicatorTextStyle: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      child: Slider(
+        value: _currentValue,
+        onChanged: (double value) {
+          setState(() {
+            _currentValue = value;
+          });
+        },
+        activeColor: const Color(0xff0148FF),
+        thumbColor: const Color(0xff0148FF),
+        inactiveColor: Colors.grey.shade300,
+        max: widget.max,
+        divisions: widget.max.toInt(),
+        label: _currentValue.round().toString(),
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watertraker/splash.dart';
+
 import 'onboarding_sex.dart';
 
 void main() {
@@ -27,6 +28,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return const OnBoardingSex();
+    return PageView(
+      children: const [
+        OnBoardingSex(),
+      ],
+    );
   }
 }
