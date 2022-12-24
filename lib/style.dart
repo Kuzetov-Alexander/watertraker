@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-abstract class MyStyle extends StatelessWidget {
-  const MyStyle({super.key});
+abstract class MyStyle {
+  const MyStyle._();
 
-  static const TextStyle styleText =
-      TextStyle(fontFamily: 'Monts', fontSize: 24, fontWeight: FontWeight.w600);
+  static TextStyle styleText =
+      GoogleFonts.montserrat(fontSize: 24, fontWeight: FontWeight.w600);
 }

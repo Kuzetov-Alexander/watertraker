@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:watertraker/splash.dart';
+import 'package:watertraker/pages/onboarding_sex.dart';
+import 'package:watertraker/pages/splash.dart';
 
-import 'onboarding_sex.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,10 +27,34 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    controller = PageController();
+  }
+
+  late final PageController controller;
+  @override
   Widget build(BuildContext context) {
     return PageView(
-      children: const [
-        OnBoardingSex(),
+      controller: controller,
+      children: [
+        OnBoardingSex(
+          onPressed: () {
+            controller.animateToPage(1,
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.decelerate);
+          },
+        ),
+        SizedBox(
+          child: Column(
+            children: const [
+              SizedBox(height: 200),
+              SizedBox(height: 200),
+              SizedBox(height: 200),
+              Center(child: Text('data')),
+            ],
+          ),
+        )
       ],
     );
   }

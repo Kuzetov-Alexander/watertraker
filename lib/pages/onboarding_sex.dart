@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:watertraker/style.dart';
 
 class OnBoardingSex extends StatelessWidget {
   const OnBoardingSex({
-    Key? key,
-  }) : super(key: key);
+    required this.onPressed,
+    super.key,
+  });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,52 +20,60 @@ class OnBoardingSex extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(children: const [
+              Row(children: [
+                const SizedBox(width: 18),
                 Text('Пол', style: MyStyle.styleText),
               ]),
               const SizedBox(height: 6),
-              MyToggleButton('Мужской', 'Женский',
-                  height: 32, width: 154, borderWidth: 12),
+              const MyToggleButton('Мужской', 'Женский',
+                  height: 25, width: 154, borderWidth: 12),
               const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Вес', style: MyStyle.styleText),
-                  MyToggleButton('кг', 'фн'),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(right: 8, left: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Вес', style: MyStyle.styleText),
+                    const MyToggleButton('кг', 'фн'),
+                  ],
+                ),
               ),
               const SizedBox(height: 8),
-              MySlider(150),
+              const MySlider(150),
               const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Рост', style: MyStyle.styleText),
-                  MyToggleButton('см', 'фт'),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(right: 8, left: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Рост', style: MyStyle.styleText),
+                    const MyToggleButton('см', 'фт'),
+                  ],
+                ),
               ),
               const SizedBox(height: 8),
-              MySlider(220),
+              const MySlider(220),
               const SizedBox(height: 32),
-              Row(children: const [
+              Row(children: [
+                const SizedBox(width: 18),
                 Text('Возраст', style: MyStyle.styleText),
-                SizedBox(width: 134),
               ]),
               const SizedBox(height: 8),
-              MySlider(100),
+              const MySlider(100),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressed,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(const Color(0xff33E34F)),
-                  minimumSize: const MaterialStatePropertyAll(Size(342, 70)),
+                  fixedSize: const MaterialStatePropertyAll(Size(342, 70)),
+                  maximumSize: const MaterialStatePropertyAll(Size(342, 70)),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   )),
                 ),
-                child: const Text('Продолжить', style: MyStyle.styleText),
-              )
+                child: Text('Продолжить', style: MyStyle.styleText),
+              ),
             ],
           ),
         ),
@@ -70,25 +82,10 @@ class OnBoardingSex extends StatelessWidget {
   }
 }
 
-class TwoPage extends StatelessWidget {
-  const TwoPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [Text('data')],
-      )),
-    );
-  }
-}
-
-// ignore: must_be_immutable
 class MySlider extends StatefulWidget {
-  MySlider(this.max, {super.key});
-  double max;
+  const MySlider(this.max, {super.key});
+
+  final double max;
 
   @override
   State<MySlider> createState() => _MySliderState();
@@ -96,6 +93,7 @@ class MySlider extends StatefulWidget {
 
 class _MySliderState extends State<MySlider> {
   double _currentValue = 0;
+
   @override
   Widget build(BuildContext context) {
     return SliderTheme(
@@ -104,10 +102,6 @@ class _MySliderState extends State<MySlider> {
         overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0),
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 17.5),
         valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-        valueIndicatorColor: Colors.redAccent,
-        valueIndicatorTextStyle: const TextStyle(
-          color: Colors.white,
-        ),
       ),
       child: Slider(
         value: _currentValue,
@@ -127,16 +121,21 @@ class _MySliderState extends State<MySlider> {
   }
 }
 
-// ignore: must_be_immutable
 class MyToggleButton extends StatefulWidget {
-  MyToggleButton(this.nameOne, this.nameTwo,
-      {super.key, this.width = 62, this.height = 32, this.borderWidth = 0});
+  const MyToggleButton(
+    this.nameOne,
+    this.nameTwo, {
+    super.key,
+    this.width = 62,
+    this.height = 25,
+    this.borderWidth = 0,
+  });
 
-  String nameOne;
-  String nameTwo;
-  int? height;
-  int? width;
-  int borderWidth;
+  final int borderWidth;
+  final int height;
+  final String nameOne;
+  final String nameTwo;
+  final int width;
 
   @override
   State<MyToggleButton> createState() => _MyToggleButtonState();
@@ -170,25 +169,21 @@ class _MyToggleButtonState extends State<MyToggleButton> {
         });
       },
       children: <Widget>[
-        Container(
-          width: widget.width?.toDouble(),
-          height: widget.height?.toDouble(),
-          alignment: Alignment.center,
-          child: Text(
-            widget.nameOne,
-            style: const TextStyle(
-                fontFamily: 'Monts', fontSize: 20, fontWeight: FontWeight.w600),
-          ),
+        SizedBox(
+          width: widget.width.toDouble(),
+          height: widget.height.toDouble(),
+          child: Text(widget.nameOne,
+              style: GoogleFonts.montserrat(
+                  fontSize: 20, fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center),
         ),
-        Container(
-          width: widget.width?.toDouble(),
-          height: widget.height?.toDouble(),
-          alignment: Alignment.center,
-          child: Text(
-            widget.nameTwo,
-            style: const TextStyle(
-                fontFamily: 'Monts', fontSize: 20, fontWeight: FontWeight.w600),
-          ),
+        SizedBox(
+          width: widget.width.toDouble(),
+          height: widget.height.toDouble(),
+          child: Text(widget.nameTwo,
+              style: GoogleFonts.montserrat(
+                  fontSize: 20, fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center),
         ),
       ],
     );

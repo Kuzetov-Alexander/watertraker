@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:watertraker/main.dart';
 
 class Splash extends StatefulWidget {
@@ -37,12 +38,11 @@ class _SplashState extends State<Splash> {
           children: [
             Image.asset('images/back.png', width: 200, height: 200),
             const SizedBox(height: 30),
-            const Text('Balance',
-                style: TextStyle(
-                    fontFamily: 'Monts',
+            Text('Balance',
+                style: GoogleFonts.montserrat(
                     fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600)),
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white)),
           ],
         ),
       ),
