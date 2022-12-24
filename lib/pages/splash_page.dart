@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:watertraker/main.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -38,11 +38,14 @@ class _SplashState extends State<Splash> {
           children: [
             Image.asset('images/back.png', width: 200, height: 200),
             const SizedBox(height: 30),
-            Text('Balance',
-                style: GoogleFonts.montserrat(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white)),
+            Text(
+              'Balance',
+              style: GoogleFonts.montserrat(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),

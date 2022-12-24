@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:watertraker/style.dart';
+import 'package:watertraker/utils/style.dart';
 
-class OnBoardingSex extends StatelessWidget {
-  const OnBoardingSex({
+// <name_widget>_page.dart -> <NameWidget>Page
+class OnBoardingSexPage extends StatelessWidget {
+  const OnBoardingSexPage({
     required this.onPressed,
     super.key,
   });
@@ -20,13 +21,20 @@ class OnBoardingSex extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(children: [
-                const SizedBox(width: 18),
-                Text('Пол', style: MyStyle.styleText),
-              ]),
+              Row(
+                children: [
+                  const SizedBox(width: 18),
+                  Text('Пол', style: MyStyle.styleText),
+                ],
+              ),
               const SizedBox(height: 6),
-              const MyToggleButton('Мужской', 'Женский',
-                  height: 25, width: 154, borderWidth: 12),
+              const MyToggleButton(
+                'Мужской',
+                'Женский',
+                height: 25,
+                width: 154,
+                borderWidth: 12,
+              ),
               const SizedBox(height: 32),
               Padding(
                 padding: const EdgeInsets.only(right: 8, left: 18),
@@ -54,10 +62,12 @@ class OnBoardingSex extends StatelessWidget {
               const SizedBox(height: 8),
               const MySlider(220),
               const SizedBox(height: 32),
-              Row(children: [
-                const SizedBox(width: 18),
-                Text('Возраст', style: MyStyle.styleText),
-              ]),
+              Row(
+                children: [
+                  const SizedBox(width: 18),
+                  Text('Возраст', style: MyStyle.styleText),
+                ],
+              ),
               const SizedBox(height: 8),
               const MySlider(100),
               const SizedBox(height: 32),
@@ -68,9 +78,11 @@ class OnBoardingSex extends StatelessWidget {
                       MaterialStateProperty.all(const Color(0xff33E34F)),
                   fixedSize: const MaterialStatePropertyAll(Size(342, 70)),
                   maximumSize: const MaterialStatePropertyAll(Size(342, 70)),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  )),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
                 ),
                 child: Text('Продолжить', style: MyStyle.styleText),
               ),
@@ -172,18 +184,26 @@ class _MyToggleButtonState extends State<MyToggleButton> {
         SizedBox(
           width: widget.width.toDouble(),
           height: widget.height.toDouble(),
-          child: Text(widget.nameOne,
-              style: GoogleFonts.montserrat(
-                  fontSize: 20, fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center),
+          child: Text(
+            widget.nameOne,
+            style: GoogleFonts.montserrat(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(
           width: widget.width.toDouble(),
           height: widget.height.toDouble(),
-          child: Text(widget.nameTwo,
-              style: GoogleFonts.montserrat(
-                  fontSize: 20, fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center),
+          child: Text(
+            widget.nameTwo,
+            style: GoogleFonts.montserrat(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

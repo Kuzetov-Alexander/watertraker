@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:watertraker/pages/onboarding_sex.dart';
-import 'package:watertraker/pages/splash.dart';
+import 'package:watertraker/pages/onboarding_sex_page.dart';
 
-
+// Это
 void main() {
   runApp(const MyApp());
 }
 
+// Это
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Splash(),
+    return MaterialApp(
+      initialRoute: '',
+      routes: {
+        '/': (context) => const Home(),
+        // '/second': (context) => OnBoardingSexPage()
+      },
     );
   }
 }
@@ -26,23 +30,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late final PageController controller;
+
   @override
   void initState() {
     super.initState();
     controller = PageController();
   }
 
-  late final PageController controller;
   @override
   Widget build(BuildContext context) {
     return PageView(
       controller: controller,
       children: [
-        OnBoardingSex(
+        OnBoardingSexPage(
           onPressed: () {
-            controller.animateToPage(1,
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.decelerate);
+            controller.animateToPage(
+              1,
+              duration: const Duration(milliseconds: 1000),
+              curve: Curves.decelerate,
+            );
           },
         ),
         SizedBox(
@@ -54,7 +61,7 @@ class _HomeState extends State<Home> {
               Center(child: Text('data')),
             ],
           ),
-        )
+        ),
       ],
     );
   }
