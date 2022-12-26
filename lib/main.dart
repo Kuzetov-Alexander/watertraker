@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:watertraker/pages/onboarding_sex_page.dart';
 
+import 'pages/onboardind_sport_page.dart';
+
 // Это
 void main() {
   runApp(const MyApp());
@@ -47,20 +49,19 @@ class _HomeState extends State<Home> {
           onPressed: () {
             controller.animateToPage(
               1,
-              duration: const Duration(milliseconds: 1000),
+              duration: const Duration(milliseconds: 2000),
               curve: Curves.decelerate,
             );
           },
         ),
-        SizedBox(
-          child: Column(
-            children: const [
-              SizedBox(height: 200),
-              SizedBox(height: 200),
-              SizedBox(height: 200),
-              Center(child: Text('data')),
-            ],
-          ),
+        OnBoardingSportPage(
+          onPressed: () {
+            controller.animateToPage(
+              2,
+              duration: const Duration(milliseconds: 2000),
+              curve: Curves.decelerate,
+            );
+          },
         ),
       ],
     );

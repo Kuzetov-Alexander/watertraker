@@ -6,4 +6,7 @@ abstract class MyStyle {
 
   static TextStyle styleText =
       GoogleFonts.montserrat(fontSize: 24, fontWeight: FontWeight.w600);
+
+  static TextStyle styleTextSmall =
+      GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w600);
 }

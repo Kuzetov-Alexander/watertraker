@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/back.png', width: 200, height: 200),
+            Image.asset('assets/images/back.png', width: 200, height: 200),
             const SizedBox(height: 30),
             Text(
               'Balance',
