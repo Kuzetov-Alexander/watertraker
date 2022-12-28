@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:watertraker/pages/onboarding_notification.dart';
 import 'package:watertraker/pages/onboarding_sex_page.dart';
+import 'package:watertraker/pages/splash_page.dart';
 
 import 'pages/onboardind_sport_page.dart';
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const SplashPage(),
         // '/second': (context) => OnBoardingSexPage()
       },
     );
@@ -58,6 +60,15 @@ class _HomeState extends State<Home> {
           onPressed: () {
             controller.animateToPage(
               2,
+              duration: const Duration(milliseconds: 2000),
+              curve: Curves.decelerate,
+            );
+          },
+        ),
+        OnBoardingNotificationPage(
+          onPressed: () {
+            controller.animateToPage(
+              1,
               duration: const Duration(milliseconds: 2000),
               curve: Curves.decelerate,
             );
