@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:watertraker/features/onboarding/presentation/widgets/toggle_button.dart';
 
 import '../../../../utils/style.dart';
-import 'onboarding_sex_page.dart';
 
 class OnBoardingSportPage extends StatefulWidget {
   const OnBoardingSportPage({

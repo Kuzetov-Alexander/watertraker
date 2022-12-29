@@ -58,7 +58,11 @@ class _SplashPageState extends State<SplashPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/back.png', width: 200, height: 200),
+                Image.asset(
+                  'assets/images/back.png',
+                  width: 300,
+                  height: 300,
+                ),
                 const SizedBox(height: 30),
                 ShaderMask(
                   shaderCallback: (Rect rect) {
@@ -69,6 +73,7 @@ class _SplashPageState extends State<SplashPage> {
                     style: GoogleFonts.montserrat(
                       fontSize: 30,
                       fontWeight: FontWeight.w700,
+                      color: Colors.white,
                     ),
                   ),
                 ),
