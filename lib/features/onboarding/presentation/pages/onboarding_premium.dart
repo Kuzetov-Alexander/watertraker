@@ -9,7 +9,7 @@ class OnboardingPremiumPage extends StatefulWidget {
     required this.onPressed,
   });
 
-  VoidCallback onPressed;
+  final VoidCallback onPressed;
   bool? value;
 
   @override
@@ -164,7 +164,31 @@ class _OnboardingPremiumPageState extends State<OnboardingPremiumPage> {
                               color: Colors.white,
                             ),
                           ),
-                        )
+                        ),
+                        ElevatedButton(
+                          onPressed: widget.onPressed,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color(0xff33E34F)),
+                            fixedSize:
+                                const MaterialStatePropertyAll(Size(342, 70)),
+                            maximumSize:
+                                const MaterialStatePropertyAll(Size(342, 70)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            'Продолжить',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
