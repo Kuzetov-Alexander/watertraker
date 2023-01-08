@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:watertraker/features/account/presentation/pages/editing_account_page.dart';
+import 'package:watertraker/features/onboarding/presentation/pages/onboarding_premium.dart';
 import 'package:watertraker/utils/style.dart';
 
 class AccountPage extends StatefulWidget {
@@ -26,38 +28,56 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          leading: InkWell(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OnboardingPremiumPage(onPressed: () {}),
+                ),
+              );
+            },
+            customBorder: const CircleBorder(),
+            child: SvgPicture.asset(
+              'assets/images/back.svg',
+              width: 16,
+              height: 25,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Аккаунт', style: MyStyle.styleTextW7),
+              InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          EditingAccountPage(onPressed: () {}),
+                    ),
+                  );
+                },
+                customBorder: const CircleBorder(),
+                child: SvgPicture.asset(
+                  'assets/images/pencil.svg',
+                  width: 30,
+                  height: 30,
+                ),
+              )
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 7),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 24),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Аккаунт', style: MyStyle.styleTextW7),
-                      // IconButton(
-                      //   onPressed: () {},
-                      //   icon: const Icon(
-                      //     Icons.more_vert_outlined,
-                      //     color: Color(0xff0148FF),
-                      //   ),
-                      // )
-                      InkWell(
-                        onTap: () {},
-                        customBorder: const CircleBorder(),
-                        child: SvgPicture.asset(
-                          'assets/images/pencil.svg',
-                          width: 30,
-                          height: 30,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 7),
                 ElevatedButton(
                   onPressed: widget.onPressed,

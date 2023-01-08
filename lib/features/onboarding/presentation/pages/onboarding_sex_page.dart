@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:watertraker/features/onboarding/presentation/widgets/myslider.dart';
 
 import 'package:watertraker/features/onboarding/presentation/widgets/toggle_button.dart';
+import 'package:watertraker/main.dart';
 import 'package:watertraker/utils/style.dart';
 
 // <name_widget>_page.dart -> <NameWidget>Page
@@ -20,9 +22,6 @@ class OnBoardingSexPage extends StatefulWidget {
 }
 
 class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
-  double weightText = 4;
-  double heightText = 40;
-  double age = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,18 +67,23 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                             ToggleData(name: 'фн'),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 8),
                 MyContainer(
-                  data: weightText.toInt().toString(),
+                  data: Provider.of<ToggleProvider>(context)
+                      .weightTextProvider
+                      .toDouble()
+                      .toInt()
+                      .toString(),
                   child: MySlider(
                     150,
                     onChanged: (value) {
                       setState(() {
-                        weightText = value;
+                        Provider.of<ToggleProvider>(context, listen: false)
+                            .convertWeight(value);
                       });
                     },
                   ),
@@ -107,12 +111,19 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                 ),
                 const SizedBox(height: 8),
                 MyContainer(
-                  data: heightText.toInt().toString(),
+                  data: Provider.of<ToggleProvider>(context)
+                      .heightTextProvider
+                      .toDouble()
+                      .toInt()
+                      .toString(),
                   child: MySlider(
                     220,
-                    onChanged: (value) => setState(() {
-                      heightText = value;
-                    }),
+                    onChanged: (value) {
+                      setState(() {
+                        Provider.of<ToggleProvider>(context, listen: false)
+                            .convertHeight(value);
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(height: 27),
@@ -124,12 +135,19 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                 ),
                 const SizedBox(height: 8),
                 MyContainer(
-                  data: age.toInt().toString(),
+                  data: Provider.of<ToggleProvider>(context)
+                      .ageProvider
+                      .toDouble()
+                      .toInt()
+                      .toString(),
                   child: MySlider(
                     100,
-                    onChanged: (value) => setState(() {
-                      age = value;
-                    }),
+                    onChanged: (value) {
+                      setState(() {
+                        Provider.of<ToggleProvider>(context, listen: false)
+                            .convertAge(value);
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(height: 27),

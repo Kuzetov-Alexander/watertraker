@@ -4,9 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:watertraker/utils/extension.dart';
 import 'package:watertraker/utils/style.dart';
 
-
-
-class MyContainer extends StatelessWidget {
+class MyContainer extends StatefulWidget {
   const MyContainer({
     super.key,
     this.data,
@@ -15,6 +13,11 @@ class MyContainer extends StatelessWidget {
   final String? data;
   final Widget child;
 
+  @override
+  State<MyContainer> createState() => _MyContainerState();
+}
+
+class _MyContainerState extends State<MyContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +32,7 @@ class MyContainer extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: Column(
         children: [
-          if (data != null)
+          if (widget.data != null)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               decoration: const ShapeDecoration(
@@ -41,7 +44,7 @@ class MyContainer extends StatelessWidget {
                 color: Colors.white,
               ),
               child: Text(
-                data ?? '',
+                widget.data ?? '',
                 style: GoogleFonts.montserrat(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -49,7 +52,7 @@ class MyContainer extends StatelessWidget {
                 ),
               ),
             ),
-          child,
+          widget.child,
         ],
       ),
     );
@@ -147,13 +150,14 @@ class MyToggleButtonState extends State<MyToggleButton> {
                       : const MaterialStatePropertyAll(Colors.white),
                 ),
                 onPressed: () {
-                  switcherHorizont[i] = true;
-                  for (int j = 0; j < switcherHorizont.length; j++) {
-                    if (j != i) {
-                      switcherHorizont[j] = false;
+                  setState(() {
+                    switcherHorizont[i] = true;
+                    for (int j = 0; j < switcherHorizont.length; j++) {
+                      if (j != i) {
+                        switcherHorizont[j] = false;
+                      }
                     }
-                  }
-                  setState(() {});
+                  });
                 },
                 child: SizedBox(
                   width: double.infinity,

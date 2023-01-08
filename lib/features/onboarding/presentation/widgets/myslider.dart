@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:watertraker/main.dart';
 
 class MySlider extends StatefulWidget {
-  const MySlider(this.max, {super.key, required this.onChanged});
+  MySlider(this.max, {super.key, required this.onChanged});
 
-  final double max;
+  double max;
   final ValueChanged<double> onChanged;
 
   @override
@@ -15,6 +17,8 @@ class _MySliderState extends State<MySlider> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ToggleProvider>(context, listen: false).valueMax = widget.max;
+
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
         trackHeight: 21,
@@ -27,15 +31,19 @@ class _MySliderState extends State<MySlider> {
         onChanged: (double value) {
           widget.onChanged(value);
           setState(() {
-            _currentValue = value;
+            _currentValue = Provider.of<ToggleProvider>(context, listen: false)
+                .convertCurrentValue(value);
           });
         },
         activeColor: const Color(0xff0148FF),
         thumbColor: const Color(0xff0148FF),
         inactiveColor: Colors.white,
-        max: widget.max,
+        max: Provider.of<ToggleProvider>(context).valueMax,
         divisions: widget.max.toInt(),
-        label: _currentValue.round().toString(),
+        label: Provider.of<ToggleProvider>(context)
+            .convertCurrentValue(_currentValue)
+            .round()
+            .toString(),
       ),
     );
   }

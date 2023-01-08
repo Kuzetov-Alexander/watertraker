@@ -71,11 +71,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   );
-                  // controller.animateToPage(
-                  //   4,
-                  //   duration: const Duration(milliseconds: 1000),
-                  //   curve: Curves.decelerate,
-                  // );
                 },
               ),
             ],

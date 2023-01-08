@@ -169,7 +169,8 @@ class _OnboardingPremiumPageState extends State<OnboardingPremiumPage> {
                           onPressed: widget.onPressed,
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                                const Color(0xff33E34F)),
+                              const Color(0xff33E34F),
+                            ),
                             fixedSize:
                                 const MaterialStatePropertyAll(Size(342, 70)),
                             maximumSize:
