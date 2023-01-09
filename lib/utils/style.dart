@@ -10,6 +10,12 @@ abstract class MyStyle {
     color: Colors.green,
   );
 
+  static TextStyle styleTextBlue = GoogleFonts.montserrat(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: Colors.blue.shade200,
+  );
+
   static TextStyle styleTextWhite = GoogleFonts.montserrat(
     fontSize: 24,
     fontWeight: FontWeight.w700,

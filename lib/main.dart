@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watertraker/features/account/presentation/pages/account_page.dart';
+
+import 'package:watertraker/features/account/presentation/pages/page_acc.dart';
 
 import 'package:watertraker/features/onboarding/presentation/pages/splash_page.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '',
         routes: {
           '/': (context) => const SplashPage(),
-          '/second': (context) => AccountPage(
+          '/second': (context) => PageAccount(
                 onPressed: () {},
               ),
         },
