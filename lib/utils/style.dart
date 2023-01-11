@@ -22,6 +22,9 @@ abstract class MyStyle {
     color: Colors.white,
   );
 
+  static TextStyle styleTextValidator =
+      GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w400);
+
   static TextStyle styleTextW7 =
       GoogleFonts.montserrat(fontSize: 24, fontWeight: FontWeight.w700);
 

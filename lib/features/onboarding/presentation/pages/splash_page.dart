@@ -27,13 +27,13 @@ class _SplashPageState extends State<SplashPage> {
 
   _navigateHome() async {
     await Future.delayed(const Duration(seconds: 4), () {});
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Home(),
-      ),
-    );
+    if (mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const Home(),
+        ),
+      );
+    }
   }
 
   @override

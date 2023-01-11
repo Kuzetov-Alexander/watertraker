@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:watertraker/features/onboarding/manager/toggle_provider.dart';
 import 'package:watertraker/features/onboarding/presentation/widgets/myslider.dart';
 
 import 'package:watertraker/features/onboarding/presentation/widgets/toggle_button.dart';
-import 'package:watertraker/main.dart';
 import 'package:watertraker/utils/style.dart';
 
 // <name_widget>_page.dart -> <NameWidget>Page
@@ -44,10 +44,26 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                   child: MyToggleButton(
                     alignment: ToggleAlignment.horizontal,
                     height: 47,
-                    listData: [
-                      ToggleData(name: 'Мужской', isDefault: true),
-                      ToggleData(name: 'Женский')
-                    ],
+                    listData: context
+                        .watch<ToggleProvider>()
+                        .toggleSex
+                        .map(
+                          (e) => ToggleData(
+                            name: e.value.value,
+                            isDefault: e.active,
+                          ),
+                        )
+                        .toList(),
+                    onPresseds: (value) {
+                      context
+                          .read<ToggleProvider>()
+                          .changedToggleSex(Sex.fromValue(value.name));
+                          
+                    },
+                    // listData: [
+                    //   ToggleData(name: 'Мужской', isDefault: true),
+                    //   ToggleData(name: 'Женский')
+                    // ],
                   ),
                 ),
                 const SizedBox(height: 27),

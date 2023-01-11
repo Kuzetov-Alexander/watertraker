@@ -78,12 +78,14 @@ class MyToggleButton extends StatefulWidget {
     this.height = 32,
     this.width = double.infinity,
     this.alignment = ToggleAlignment.horizontal,
+    this.onPresseds,
   });
 
   final ToggleAlignment alignment;
   final List<ToggleData> listData;
   final double width;
   final double height;
+  final ValueChanged<ToggleData>? onPresseds;
 
   @override
   State<MyToggleButton> createState() => MyToggleButtonState();
@@ -150,14 +152,15 @@ class MyToggleButtonState extends State<MyToggleButton> {
                       : const MaterialStatePropertyAll(Colors.white),
                 ),
                 onPressed: () {
-                  setState(() {
-                    switcherHorizont[i] = true;
-                    for (int j = 0; j < switcherHorizont.length; j++) {
-                      if (j != i) {
-                        switcherHorizont[j] = false;
-                      }
-                    }
-                  });
+                  // setState(() {
+                  //   switcherHorizont[i] = true;
+                  //   for (int j = 0; j < switcherHorizont.length; j++) {
+                  //     if (j != i) {
+                  //       switcherHorizont[j] = false;
+                  //     }
+                  //   }
+                  // });
+                  widget.onPresseds?.call(e);
                 },
                 child: SizedBox(
                   width: double.infinity,

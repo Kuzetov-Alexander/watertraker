@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:watertraker/features/account/presentation/pages/page_acc.dart';
 import 'package:watertraker/utils/style.dart';
 
 class OnboardingPremiumPage extends StatefulWidget {
@@ -168,14 +167,16 @@ class _OnboardingPremiumPageState extends State<OnboardingPremiumPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PageAccount(
-                                  onPressed: () {},
-                                ),
-                              ),
-                            );
+                            widget.onPressed();
+
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => PageAccount(
+                            //       onPressed: () {},
+                            //     ),
+                            //   ),
+                            // );
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(

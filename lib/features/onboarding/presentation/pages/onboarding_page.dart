@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:watertraker/features/account/presentation/pages/account_page.dart';
+import 'package:watertraker/features/account/presentation/pages/page_acc.dart';
 import 'package:watertraker/features/onboarding/presentation/pages/onboardind_sport_page.dart';
 import 'package:watertraker/features/onboarding/presentation/pages/onboarding_notification.dart';
 import 'package:watertraker/features/onboarding/presentation/pages/onboarding_premium.dart';
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => AccountPage(
+                      builder: (context) => PageAccount(
                         onPressed: () {},
                       ),
                     ),

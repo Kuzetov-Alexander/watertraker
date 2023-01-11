@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watertraker/features/onboarding/manager/toggle_provider.dart';
 import 'package:watertraker/main.dart';
 
 class MySlider extends StatefulWidget {

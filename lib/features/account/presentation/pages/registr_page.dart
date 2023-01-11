@@ -13,7 +13,18 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   bool hidePassword = true;
-  final _controller = TextEditingController();
+  final _numberPhoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _numberPhoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +41,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
         body: Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 7),
             child: ListView(
               children: [
                 const SizedBox(height: 7),
-                TextField(
+                TextFormField(
+                  controller: _numberPhoneController,
+                  maxLength: 11,
+                  style: MyStyle.styleTextValidator,
                   keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [
+                    FilteringTextInputFormatter(
+                      RegExp(r'^[()\d -]{1,11}$'),
+                      allow: true,
+                    ) // FilteringTextInputFormatter.digitsOnly,
+                  ],
                   decoration: InputDecoration(
                     labelText: 'Номер телефона',
                     labelStyle: MyStyle.styleTextBlue,
@@ -60,9 +80,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
+                  //   validator: (value) =>
+                  //     _validateEmail(value),
                 ),
                 const SizedBox(height: 7),
-                TextField(
+                TextFormField(
+                  controller: _emailController,
+                  style: MyStyle.styleTextValidator,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: 'Почта',
@@ -86,9 +110,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
+                  validator: _validateEmail,
                 ),
                 const SizedBox(height: 7),
                 TextField(
+                  controller: _passwordController,
+                  style: MyStyle.styleTextValidator,
                   obscureText: hidePassword,
                   maxLength: 10,
                   keyboardType: TextInputType.visiblePassword,
@@ -130,6 +157,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 const SizedBox(height: 7),
                 TextField(
+                  style: MyStyle.styleTextValidator,
                   obscureText: hidePassword,
                   maxLength: 10,
                   keyboardType: TextInputType.visiblePassword,
@@ -171,7 +199,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 const SizedBox(height: 7),
                 ElevatedButton(
-                  onPressed: widget.onPressed,
+                  onPressed: () {
+                    _submitForm();
+                  },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(const Color(0xff33E34F)),
@@ -208,5 +238,34 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      print('Form is valid');
+
+      print(
+        'Number phone: ${_numberPhoneController.text}',
+      );
+
+      print(
+        'Number email: ${_emailController.text}',
+      );
+
+      print(
+        'Number password: ${_passwordController.text}',
+      );
+    }
+  }
+
+  String? _validateEmail(String? value) {
+    final nameExp = RegExp(r'^[A-Za-z]+$');
+    if (value!.isEmpty) {
+      return 'Name is required';
+    } else if (!nameExp.hasMatch(value)) {
+      return 'Please enter email characters';
+    } else {
+      return null;
+    }
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:watertraker/features/account/presentation/pages/editing_account_page.dart';
-import 'package:watertraker/features/onboarding/presentation/pages/onboarding_premium.dart';
 import 'package:watertraker/utils/style.dart';
 
 class AccountPage extends StatefulWidget {
@@ -33,12 +32,7 @@ class _AccountPageState extends State<AccountPage> {
           foregroundColor: Colors.black,
           leading: InkWell(
             onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OnboardingPremiumPage(onPressed: () {}),
-                ),
-              );
+              Navigator.of(context).pop();
             },
             customBorder: const CircleBorder(),
             child: SvgPicture.asset(
