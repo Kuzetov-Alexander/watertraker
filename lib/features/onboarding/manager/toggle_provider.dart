@@ -24,6 +24,7 @@ enum HeightUnit {
   ft;
 }
 
+// нужен для бул значения переключения
 class ToggleState<T extends Enum> {
   ToggleState({
     required this.active,
@@ -43,7 +44,6 @@ class ToggleProvider extends ChangeNotifier {
   double ageProvider = 1;
   double valueMax = 0;
   double currentValue = 0;
-  late List<bool> switcherHorizont;
   final List<ToggleState<Sex>> toggleSex;
 
   ToggleProvider(this.toggleSex);
@@ -51,8 +51,8 @@ class ToggleProvider extends ChangeNotifier {
   void changedToggleSex(Sex value) {
     for (var element in toggleSex) {
       element.active = element.value == value;
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   double convertCurrentValue(double a) {

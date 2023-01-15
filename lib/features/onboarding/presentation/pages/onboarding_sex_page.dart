@@ -58,7 +58,6 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                       context
                           .read<ToggleProvider>()
                           .changedToggleSex(Sex.fromValue(value.name));
-                          
                     },
                     // listData: [
                     //   ToggleData(name: 'Мужской', isDefault: true),

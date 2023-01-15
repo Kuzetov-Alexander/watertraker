@@ -92,13 +92,13 @@ class MyToggleButton extends StatefulWidget {
 }
 
 class MyToggleButtonState extends State<MyToggleButton> {
-  late List<bool> switcherHorizont;
+  // late List<bool> switcherHorizont;
 
-  @override
-  void initState() {
-    super.initState();
-    switcherHorizont = widget.listData.map((e) => e.isDefault).toList();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   switcherHorizont = widget.listData.map((e) => e.isDefault).toList();
+  // }
 
   Widget _buildLayout(List<Widget> a) {
     if (widget.alignment == ToggleAlignment.vertical) {
@@ -130,7 +130,7 @@ class MyToggleButtonState extends State<MyToggleButton> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                  foregroundColor: switcherHorizont[i]
+                  foregroundColor: e.isDefault
                       ? const MaterialStatePropertyAll(Colors.white)
                       : MaterialStatePropertyAll(Colors.blue.shade200),
                   minimumSize: widget.alignment == ToggleAlignment.horizontal
@@ -147,7 +147,7 @@ class MyToggleButtonState extends State<MyToggleButton> {
                       : MaterialStatePropertyAll(
                           Size(widget.width, widget.height),
                         ),
-                  backgroundColor: switcherHorizont[i]
+                  backgroundColor: e.isDefault
                       ? const MaterialStatePropertyAll(Color(0xff0148FF))
                       : const MaterialStatePropertyAll(Colors.white),
                 ),
