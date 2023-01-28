@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:watertraker/features/onboarding/manager/toggle_provider.dart';
 import 'package:watertraker/features/onboarding/presentation/widgets/toggle_button.dart';
 
 import '../../../../utils/style.dart';
@@ -41,11 +43,21 @@ class _OnBoardingSportPageState extends State<OnBoardingSportPage> {
                   child: MyToggleButton(
                     height: 67,
                     alignment: ToggleAlignment.vertical,
-                    listData: [
-                      ToggleData(name: 'Редко'),
-                      ToggleData(name: '2-3 раза в неделю'),
-                      ToggleData(name: 'Ежедневно')
-                    ],
+                    listData: context
+                        .watch<ToggleProvider>()
+                        .questionSport
+                        .map(
+                          (e) => ToggleData(
+                            name: e.value.value,
+                            isDefault: e.active,
+                          ),
+                        )
+                        .toList(),
+                    onPresseds: (value) {
+                      context.read<ToggleProvider>().changedQuestionSport(
+                            QuestionSport.fromValue(value.name),
+                          );
+                    },
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -60,11 +72,21 @@ class _OnBoardingSportPageState extends State<OnBoardingSportPage> {
                   child: MyToggleButton(
                     height: 67,
                     alignment: ToggleAlignment.vertical,
-                    listData: [
-                      ToggleData(name: 'Никогда'),
-                      ToggleData(name: 'Редко'),
-                      ToggleData(name: 'Часто')
-                    ],
+                    listData: context
+                        .watch<ToggleProvider>()
+                        .questionDrink
+                        .map(
+                          (e) => ToggleData(
+                            name: e.value.value,
+                            isDefault: e.active,
+                          ),
+                        )
+                        .toList(),
+                    onPresseds: (value) {
+                      context.read<ToggleProvider>().changedQuestionDrink(
+                            QuestionDrink.fromValue(value.name),
+                          );
+                    },
                   ),
                 ),
                 const SizedBox(height: 23),

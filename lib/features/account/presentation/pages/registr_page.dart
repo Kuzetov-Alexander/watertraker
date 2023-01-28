@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:watertraker/features/account/presentation/pages/auth_page.dart';
 import 'package:watertraker/utils/style.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -17,13 +21,32 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _confirmPasswordController = TextEditingController();
+  String password = '';
+  final _numberFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+  final _confirmPasswordFocus = FocusNode();
 
   @override
   void dispose() {
     _emailController.dispose();
     _numberPhoneController.dispose();
     _passwordController.dispose();
+    _numberFocus.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    _confirmPasswordFocus.dispose();
     super.dispose();
+  }
+
+  void _fieldFocusChange(
+    BuildContext context,
+    FocusNode currentfocus,
+    FocusNode nextFocus,
+  ) {
+    currentfocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 
   @override
@@ -48,6 +71,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               children: [
                 const SizedBox(height: 7),
                 TextFormField(
+                  focusNode: _numberFocus,
+                  autofocus: true,
+                  onFieldSubmitted: (_) {
+                    _fieldFocusChange(context, _numberFocus, _emailFocus);
+                  },
                   controller: _numberPhoneController,
                   maxLength: 11,
                   style: MyStyle.styleTextValidator,
@@ -56,7 +84,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     FilteringTextInputFormatter(
                       RegExp(r'^[()\d -]{1,11}$'),
                       allow: true,
-                    ) // FilteringTextInputFormatter.digitsOnly,
+                    ),
                   ],
                   decoration: InputDecoration(
                     labelText: 'Номер телефона',
@@ -80,11 +108,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
-                  //   validator: (value) =>
-                  //     _validateEmail(value),
                 ),
                 const SizedBox(height: 7),
                 TextFormField(
+                  focusNode: _emailFocus,
+                  onFieldSubmitted: (_) {
+                    _fieldFocusChange(context, _emailFocus, _passwordFocus);
+                  },
                   controller: _emailController,
                   style: MyStyle.styleTextValidator,
                   keyboardType: TextInputType.emailAddress,
@@ -110,10 +140,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
-                  validator: _validateEmail,
+                  validator: emailValidator,
                 ),
                 const SizedBox(height: 7),
-                TextField(
+                TextFormField(
+                  focusNode: _passwordFocus,
+                  onFieldSubmitted: (_) {
+                    _fieldFocusChange(
+                      context,
+                      _passwordFocus,
+                      _confirmPasswordFocus,
+                    );
+                  },
                   controller: _passwordController,
                   style: MyStyle.styleTextValidator,
                   obscureText: hidePassword,
@@ -154,9 +192,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
+                  onChanged: (value) => password = value,
+                  validator: passwordValidator,
                 ),
                 const SizedBox(height: 7),
-                TextField(
+                TextFormField(
+                  focusNode: _confirmPasswordFocus,
+                  controller: _confirmPasswordController,
                   style: MyStyle.styleTextValidator,
                   obscureText: hidePassword,
                   maxLength: 10,
@@ -196,12 +238,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
+                  validator: (value) =>
+                      MatchValidator(errorText: 'passwords do not match')
+                          .validateMatch(value!, password),
                 ),
                 const SizedBox(height: 7),
                 ElevatedButton(
-                  onPressed: () {
-                    _submitForm();
-                  },
+                  onPressed: widget.onPressed,
+                  // () {
+                  //   _submitForm();
+                  // },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(const Color(0xff33E34F)),
@@ -224,7 +270,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                   ),
                   child: Text(
-                    'Сменить аккаунт',
+                    'Создать аккаунт',
                     style: GoogleFonts.montserrat(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -242,30 +288,80 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      print('Form is valid');
+      _formKey.currentState!.save();
+      _alertDialogs();
 
-      print(
+      log(
         'Number phone: ${_numberPhoneController.text}',
       );
 
-      print(
+      log(
         'Number email: ${_emailController.text}',
       );
 
-      print(
+      log(
         'Number password: ${_passwordController.text}',
+      );
+      log(
+        'Confirm password: ${_confirmPasswordController.text}',
       );
     }
   }
 
-  String? _validateEmail(String? value) {
-    final nameExp = RegExp(r'^[A-Za-z]+$');
-    if (value!.isEmpty) {
-      return 'Name is required';
-    } else if (!nameExp.hasMatch(value)) {
-      return 'Please enter email characters';
-    } else {
-      return null;
-    }
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
+    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+    PatternValidator(
+      r'(?=.*?[#?!@$%^&*()_])',
+      errorText: 'passwords must have at least one special character',
+    )
+  ]);
+
+  final emailValidator = MultiValidator([
+    EmailValidator(errorText: 'Error Text'),
+  ]);
+
+  void _alertDialogs() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Registration successful',
+            style: MyStyle.styleText,
+            textAlign: TextAlign.center,
+          ),
+          content: Text(
+            ' Dear User is now a verified register form',
+            style: MyStyle.styleTextSmall,
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AuthentificalPage(
+                        onPressed:
+                            // widget.onPressed,
+                            () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Verified',
+                  style: MyStyle.styleTextSmall,
+                  textAlign: TextAlign.start,
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }

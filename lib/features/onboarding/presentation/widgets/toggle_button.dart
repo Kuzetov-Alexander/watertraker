@@ -92,14 +92,6 @@ class MyToggleButton extends StatefulWidget {
 }
 
 class MyToggleButtonState extends State<MyToggleButton> {
-  // late List<bool> switcherHorizont;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   switcherHorizont = widget.listData.map((e) => e.isDefault).toList();
-  // }
-
   Widget _buildLayout(List<Widget> a) {
     if (widget.alignment == ToggleAlignment.vertical) {
       return Column(

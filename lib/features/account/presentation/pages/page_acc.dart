@@ -61,13 +61,18 @@ class _PageAccountState extends State<PageAccount> {
           ),
           RegistrationPage(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AccountPage(
-                    onPressed: () {},
-                  ),
-                ),
+              controller.animateToPage(
+                2,
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.decelerate,
               );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => AuthentificalPage(
+              //       onPressed: () {},
+              //     ),
+              //   ),
+              // );
             },
           ),
         ],

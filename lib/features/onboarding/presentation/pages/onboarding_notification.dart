@@ -4,12 +4,12 @@ import 'package:watertraker/utils/style.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 class OnBoardingNotificationPage extends StatefulWidget {
-  OnBoardingNotificationPage({
+  const OnBoardingNotificationPage({
     super.key,
     required this.onPressed,
   });
 
-  VoidCallback onPressed;
+  final VoidCallback onPressed;
 
   @override
   State<OnBoardingNotificationPage> createState() =>

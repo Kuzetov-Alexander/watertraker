@@ -19,12 +19,41 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => ToggleProvider(
-            Sex.values
+            ToggleStateValue(value: 0, minValue: 0, maxValue: 160),
+            toggleSex: Sex.values
                 .map(
                   (e) => ToggleState(
                     active: e == Sex.male,
                     value: e,
                   ),
+                )
+                .toList(),
+            toggleWeightUnit: WeightUnit.values
+                .map(
+                  (e) => ToggleState(
+                    active: e == WeightUnit.kilogram,
+                    value: e,
+                  ),
+                )
+                .toList(),
+            toggleHeightUnit: HeightUnit.values
+                .map(
+                  (e) => ToggleState(
+                    active: e == HeightUnit.sm,
+                    value: e,
+                  ),
+                )
+                .toList(),
+            questionDrink: QuestionDrink.values
+                .map(
+                  (e) =>
+                      ToggleState(active: e == QuestionDrink.seldom, value: e),
+                )
+                .toList(),
+            questionSport: QuestionSport.values
+                .map(
+                  (e) =>
+                      ToggleState(active: e == QuestionSport.never, value: e),
                 )
                 .toList(),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:watertraker/features/onboarding/manager/toggle_provider.dart';
+import 'package:watertraker/features/onboarding/presentation/widgets/create_slider.dart';
 import 'package:watertraker/features/onboarding/presentation/widgets/myslider.dart';
 
 import 'package:watertraker/features/onboarding/presentation/widgets/toggle_button.dart';
@@ -59,10 +60,6 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                           .read<ToggleProvider>()
                           .changedToggleSex(Sex.fromValue(value.name));
                     },
-                    // listData: [
-                    //   ToggleData(name: 'Мужской', isDefault: true),
-                    //   ToggleData(name: 'Женский')
-                    // ],
                   ),
                 ),
                 const SizedBox(height: 27),
@@ -77,10 +74,24 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                         child: MyToggleButton(
                           alignment: ToggleAlignment.horizontal,
                           width: 62,
-                          listData: [
-                            ToggleData(name: 'кг', isDefault: true),
-                            ToggleData(name: 'фн'),
-                          ],
+                          listData: context
+                              .watch<ToggleProvider>()
+                              .toggleWeightUnit
+                              .map(
+                                (e) => ToggleData(
+                                  name: e.value.value,
+                                  isDefault: e.active,
+                                ),
+                              )
+                              .toList(),
+                          onPresseds: (value) {
+                            context
+                                .read<ToggleProvider>()
+                                .changedToggleWeightUnit(
+                                  WeightUnit.fromValue(value.name),
+                                );
+                            context.read<ToggleProvider>().recalculation();
+                          },
                         ),
                       ),
                     ],
@@ -89,19 +100,30 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                 const SizedBox(height: 8),
                 MyContainer(
                   data: Provider.of<ToggleProvider>(context)
-                      .weightTextProvider
-                      .toDouble()
-                      .toInt()
-                      .toString(),
-                  child: MySlider(
-                    150,
-                    onChanged: (value) {
-                      setState(() {
-                        Provider.of<ToggleProvider>(context, listen: false)
-                            .convertWeight(value);
-                      });
+                      .weight
+                      .toStringAsFixed(0),
+                  child: Builder(
+                    builder: (context) {
+                      final provider = Provider.of<ToggleProvider>(context);
+                      return MySl(
+                        max: provider.weightMax,
+                        onChanged: (value) {
+                          provider.weightValue =
+                              provider.weightValue.copyWith(value: value);
+                        },
+                        value: provider.weight,
+                      );
                     },
                   ),
+                  // MySlider(
+                  //   150,
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       Provider.of<ToggleProvider>(context, listen: false)
+                  //           .convertWeight(value);
+                  //     });
+                  //   },
+                  // ),
                 ),
                 const SizedBox(height: 27),
                 Padding(
@@ -115,10 +137,23 @@ class _OnBoardingSexPageState extends State<OnBoardingSexPage> {
                         child: MyToggleButton(
                           alignment: ToggleAlignment.horizontal,
                           width: 62,
-                          listData: [
-                            ToggleData(name: 'см', isDefault: true),
-                            ToggleData(name: 'фт'),
-                          ],
+                          listData: context
+                              .watch<ToggleProvider>()
+                              .toggleHeightUnit
+                              .map(
+                                (e) => ToggleData(
+                                  name: e.value.value,
+                                  isDefault: e.active,
+                                ),
+                              )
+                              .toList(),
+                          onPresseds: (value) {
+                            context
+                                .read<ToggleProvider>()
+                                .changedToggleHeightUnit(
+                                  HeightUnit.fromValue(value.name),
+                                );
+                          },
                         ),
                       )
                     ],
